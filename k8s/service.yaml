@@ -1,0 +1,26 @@
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: cats-api # так как сервисы могут быть разными
+#spec:
+#  selector:
+#    app.kubernetes.io/name: cats-api # метка, которая будет определять на какие поды
+#                                  # ему нужно будет осуществлять запросы
+#  ports:
+#    - protocol: TCP
+#      port: 80 # у нас будет приложение на этом порту
+#      targetPort: 8080 # в контейнере приложение будет запускаться на этом порту
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cats-api
+spec:
+  type: ClusterIP
+  selector:
+    app: cats-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

@@ -1,0 +1,17 @@
+kind: Cluster  # Определение типа объекта (кластера Kubernetes).
+apiVersion: kind.x-k8s.io/v1alpha4  # Версия API kind.
+nodes:  # Определение узлов (нод) кластера.
+  - role: control-plane  # Роль первого узла - управляющего.
+    kubeadmConfigPatches:  # Патчи для конфигурации kubeadm.
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:  # Дополнительное сопоставление портов.
+      - containerPort: 80  # Порт в контейнере.
+        hostPort: 8888  # Порт на хосте.
+        protocol: TCP  # Протокол для порта - TCP.
+  - role: worker  # Роль второго узла - рабочего.
+  - role: worker  # Роль третьего узла - рабочего.
+  - role: worker  # Роль четвертого узла - рабочего.
